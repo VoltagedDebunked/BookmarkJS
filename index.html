@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookmarkJS - The best tool for quick browser actions</title>
+    <link rel="icon" type="image/x-icon" href="icon.ico">
+    <style>
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+            margin: 0;
+        }
+        h1 {
+            color: #4da8da;
+            margin-bottom: 30px;
+        }
+        #js-code {
+            width: 80%;
+            height: 150px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1f1f1f;
+            color: #fff;
+            resize: none;
+            font-size: 16px;
+        }
+        #bookmark-name {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1f1f1f;
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .button-container button, .button-container label {
+            margin-bottom: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .button-container button {
+            padding: 10px 30px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4da8da;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+        .button-container button:hover {
+            background-color: #2b95c9;
+        }
+        #bookmark-icon {
+            display: none;
+        }
+        #choose-icon {
+            padding: 10px 30px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4da8da;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+        #choose-icon:hover {
+            background-color: #2b95c9;
+        }
+        #bookmarklet-container {
+            display: none;
+            background-color: #2b2b2b;
+            border: 2px solid #4da8da;
+            border-radius: 10px;
+            padding: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 500px;
+        }
+        #bookmarklet-container p {
+            color: #4da8da;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        #bookmarklet-container a {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            display: block;
+            padding: 10px 30px;
+            border-radius: 5px;
+            background-color: #4da8da;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        #bookmarklet-container a:hover {
+            background-color: #2b95c9;
+        }
+        p {
+            font-size: 16px;
+            color: #aaa;
+            margin-top: 40px;
+            line-height: 1.6;
+        }
+        #support-link {
+            display: inline-block;
+            color: #4da8da;
+            text-decoration: none;
+            transition: color 0.3s;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        #support-link:hover {
+            color: #2b95c9;
+        }
+        #support-link img {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        #source-code-link {
+            display: inline-block;
+            color: #4da8da;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+        #source-code-link:hover {
+            color: #2b95c9;
+        }
+        #source-code-link img {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        .info {
+            text-align: left;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #1f1f1f;
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .info h2 {
+            color: #4da8da;
+            margin-bottom: 10px;
+        }
+        .info p {
+            color: #aaa;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <h1>BookmarkJS - The best tool for quick browser actions</h1>
+    <textarea id="js-code" placeholder="Paste your JavaScript code here"></textarea><br>
+    <input type="text" id="bookmark-name" placeholder="Enter a name for your bookmarklet"><br>
+    <div class="button-container">
+        <input type="file" id="bookmark-icon" accept="image/*">
+        <label for="bookmark-icon" id="choose-icon">Choose Icon</label>
+        <button onclick="createBookmarklet()">Create Bookmarklet</button>
+    </div>
+    <div id="bookmarklet-container"></div>
+    <p>Go to the 3 vertical dots on the top right of your browser (Chrome), and go to bookmarks, and select "Enable bookmark tab" then, drag your bookmark into that tab.</p>
+    <a id="support-link" href="https://ko-fi.com/voltagedstools" target="_blank">
+        <img src="kofi.png" alt="Support Me" width="30px">
+        Support Me   
+    </a>
+    <a id="source-code-link" href="https://github.com/VoltagedDebunked/BookmarkJS" target="_blank">
+        <img src="github.ico" alt="Source Code" width="30px">
+          View Source Code
+    </a>
+    <div class="info">
+        <h2>How does this work?</h2>
+        <p>This works by writing JavaScript code and creating a bookmarklet. A bookmarklet is like a bookmark, but instead of redirecting, it executes JavaScript code on the current page.</p>
+        <p>Made with ❤️ by Voltaged</p>
+    </div>
+    
+    <script>
+        function createBookmarklet() {
+            var jsCode = document.getElementById("js-code").value.trim();
+            var bookmarkName = document.getElementById("bookmark-name").value.trim();
+            if (bookmarkName === "") {
+                alert("Please enter a name for your bookmarklet.");
+                return;
+            }
+            var bookmarkIcon = document.getElementById("bookmark-icon").files[0];
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                var bookmarkletCode = "javascript:(function(){" + encodeURIComponent(jsCode) + "})()";
+                var bookmarkletContainer = document.getElementById("bookmarklet-container");
+                var bookmarkletLink = document.createElement("a");
+                bookmarkletLink.href = bookmarkletCode;
+                bookmarkletLink.innerText = bookmarkName;
+                bookmarkletLink.draggable = true;
+                bookmarkletLink.onclick = function() { return false; };
+                bookmarkletContainer.innerHTML = "";
+                bookmarkletContainer.appendChild(bookmarkletLink);
+                bookmarkletContainer.style.display = "block";
+                if (bookmarkIcon) {
+                    var dataUrl = event.target.result;
+                    bookmarkletLink.style.backgroundImage = "url(" + dataUrl + ")";
+                    bookmarkletLink.style.backgroundSize = "contain";
+                    bookmarkletLink.style.backgroundRepeat = "no-repeat";
+                    bookmarkletLink.style.paddingLeft = "20px";
+                }
+            };
+            if (bookmarkIcon) {
+                reader.readAsDataURL(bookmarkIcon);
+            }
+        }
+    </script>
+</body>
+</html>
