@@ -1,4 +1,4 @@
-![Vexet_AI__3_-removebg-preview](https://github.com/VoltagedDebunked/BookmarkJS/assets/140754373/69d3825e-7506-458a-91be-085e5a9b8539)
+![Vexet_AI__3_-removebg-preview (1)](https://github.com/VoltagedDebunked/BookmarkJS/assets/140754373/d0e93006-2aa8-4daa-8875-b0b39853d6ed)
 # BookmarkJS
 A Simple Bookmarklet creator i made, as a fun project!
 # Use
